@@ -1,0 +1,32 @@
+<!doctype html>
+<html> 
+	<head> 
+		<style type="text/css"> 
+			table { 
+				margin: 10px;
+			 	border: 1px solid black;
+			 	float: left;
+			 }
+			 tr, td, th {
+			 	border: 1px solid black;
+			 }
+		</style> 
+	</head> 
+	<body> 
+
+	</body> 
+
+	<script type="text/javascript"> 
+
+		for(var i = 1; i <= 10; i++) { 
+			table = "<table><thead><tr><th colspan=2>Produtos de " + i + "</th></tr></thead><tbody>";
+			for(var j = 1; j <= 10; j++) { 
+				table = table + "<tr><td>" + i + "x" + j + "</td><td>" + (i*j) + "</td></tr>";
+			}
+			table = table + "</tbody></table>";
+			document.write(table); 	
+			table = ""; 
+		}
+
+	</script> 
+</html> 

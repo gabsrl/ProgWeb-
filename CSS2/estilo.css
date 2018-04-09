@@ -1,0 +1,20 @@
+body { 
+	background-image: url("img1.jpg"); 
+	background-size: 800px 600px;
+	background-repeat: no-repeat;
+	background-position: 50% 0px;
+
+ }
+
+
+
+ .caixa-de-texto { 
+ 	margin: 100px 350px;
+  	border: 10px solid black;
+  	border-radius: 15px; 
+  	box-shadow: 5px 3px 5px 3px gray;
+  	width: 400px;
+  	background-color: rgba(255, 255, 255, 0.5);
+
+  }
+

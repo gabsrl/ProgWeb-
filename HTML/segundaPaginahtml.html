@@ -1,0 +1,92 @@
+<!doctype html>
+	<hmtl>
+		<head>
+			<meta charset="utf-8"/>
+			<title>Instituto de Computação</title>
+		</head>
+
+		<body>
+			<h1>Formulário de Contato</h1>
+			<p>Por favor,preencha o formulário abaixo e clique no botão Enviar Mensagem. Agradecemos por seu contato.</p>
+
+			<form>
+				<fieldset>
+					<legend>Dados Básicos</legend>
+					Nome <input type="text"/><br>
+					Email <input type="email" placeholder="seunome@seudominio.com.br"/><br>
+					Website <input type="url"/>
+				</fieldset>
+			
+				<fieldset> 
+					<legend>Seu Curso no Instituto de Computação</legend>
+					<input type="radio" name="curso" value="cc" id="cc" checked>
+					<label for="cc">Ciência da Computação</label><br>
+					
+					<input type="radio" name="curso" value="si" id="si">
+					<label for="si">Sistemas de Informação</label><br>
+					
+					<input type="radio" name="curso" value="ec" id="ec">
+					<label for="ec">Engenharia da Computação</label><br> 
+				</fieldset>
+
+				<fieldset>
+					<legend>Assinale as linguagens já usadas por você:</legend>
+
+					<label for="java">Java</label> 
+					<input type="checkbox" name="ling" id="java" value="java">
+				
+					<label for="java">C</label>
+					<input type="checkbox" name="ling" id="c" value="c">
+
+					<label for="java">C++</label>
+					<input type="checkbox" name="ling" id="cpp"	value="cpp">
+					
+					<label for="perl">Perl</label>
+					<input type="checkbox" name="ling" id="perl" value="perl">
+
+					<label for="perl">Javascript</label>
+					<input type="checkbox" name="ling" id="js" value="js">
+		
+				</fieldset>
+
+				<fieldset>
+					<legend>Dados Complementares</legend>
+					Cor favorita <input type="color"> <br>
+					Data de Nascimento <input type="date" name="dataNascimento"> <br>
+					Ano de entrada em seu curso no Icomp <input type="number"  name="dataEntradaCursoIcomp"><br>
+					Nota para este site <input type="range"> 
+				</fieldset>
+
+				<fieldset>
+					<legend>Area de Atuação</legend>
+					<select> 
+						<option value="1">Banco de Dados</option> 
+						<option value="2">Educação a Distância</option>	
+						<option value="3">Engenharia de Software</option>
+						<option value="4">Otimização</option>
+						<option value="5">Programação para a Web</option>
+						<option value="6">Recuperação da Informação</option>
+						<option value="7">Redes de Computadores</option>
+					</select> 
+				</fieldset>
+
+				<fieldset>
+					<legend>Submeta seu curriculo vitae</legend>  
+					<input type="file">
+				</fieldset> 
+
+				<fieldset> 
+					<legend>Diigite sua mensagem</legend> 
+					<textarea name="mensagem" rows="4" cols="50">Este é o valor padrão.
+					</textarea>
+				</fieldset> 
+
+				<input type="reset" value="Resetar Dados"> 	
+				<input type="submit" value="Enviar mensagem"> 
+			</form>
+
+		</body>
+	
+
+	</hmtl>
+	
