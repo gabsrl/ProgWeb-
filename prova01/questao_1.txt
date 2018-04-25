@@ -1,0 +1,4 @@
+Erro 1: O documento Html nao possui a tag html, em seu lugar ja e inserida a tag body. Linha 2. Para corrigir o erro deve-se colocar todo o codigo presente no documento HTML dentro da tag HTML e a fecha-la.  
+Erro 2: A tag head nao e fechada e  esta dentro da tag body. Linha 3. Para corrigir o erro deve-se colocar o bloco de codigo da tag fora do body-antes da declaracao do body - e fechar a tag head apos a tag style.
+Erro 3: A tag span nao e fechada. Linha 13. Deve-se fecha-la. 
+Erro 4: A tag style(que e usada para estilos) esta sendo usada no lugar da tag script para inserir codigo JavaScript. Linha 19. Para corrigir o erro deve-se trocar a tag style por script e inserir o atributo type="text/javascript" 
