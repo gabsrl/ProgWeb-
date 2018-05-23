@@ -1,0 +1,114 @@
+.para-direita {
+   background-image: url(skier.png);
+   background-position: -25px -6px;
+   width: 22px;
+   height: 28px;
+}
+
+.para-esquerda {
+   background-image: url(skier.png);
+   background-position: -26px -43px;
+   width: 22px;
+   height: 28px;
+}
+
+.para-frente {
+   background-image: url(skier.png);
+   background-position: -67px -2px;
+   width: 15px;
+   height: 32px;
+}
+
+.skier-caido { 
+   background-image: url(skier.png);
+   background-position: -82px -82px;
+   width: 34px;
+   height: 27px;
+}
+
+.skier-caido-morto { 
+   background-image: url(skier.png);
+   background-position: -241px -2px;
+   width: 32px;
+   height: 31px;
+}
+
+.cogomelo {
+   background-image: url(obstacles.png);
+   background-position: -270px -50px ;   
+   width: 10px;
+   height: 12px;   
+   position: absolute;
+}
+
+.arbusto-em-chamas { 
+   background-image: url(obstacles.png);
+   background-position: -23px -102px;   
+   width: 24px;
+   height: 28px;   
+   position: absolute;
+}
+
+.rocha { 
+   background-image: url(obstacles.png);
+   background-position: -29px -51px;   
+   width: 25px;
+   height: 12px;   
+   position: absolute;
+}
+
+.toco-de-arvore { 
+   background-image: url(obstacles.png);
+   background-position: -253px -52px ;   
+   width: 16px;
+   height: 12px;   
+   position: absolute;
+}
+
+.arvore {
+   background-image: url(obstacles.png);
+   background-position: -0px -31px;   
+   width: 28px;
+   height: 32px;   
+   position: absolute;
+}
+
+.arvore-grande { 
+   background-image: url(obstacles.png);
+   background-position: -96px -66px ;   
+   width: 33px;
+   height: 64px;   
+   position: absolute;
+}
+
+.cachorro { 
+   background-image: url(skier.png);
+   background-position: -0px -208px ;   
+   width: 21px;
+   height: 15px;   
+   position: absolute;
+}
+
+#container { 
+   position: relative;
+}
+
+#montanha {
+   border: 1px solid black;
+   position: absolute;
+   overflow: hidden;
+}
+
+#skier {
+   position: absolute;
+}
+
+#painel {
+   border: 10px solid black;
+   width: 400px;
+   height: 100px;
+   position: absolute;
+   margin-left: 350px;
+   padding: 10px;
+}
+
