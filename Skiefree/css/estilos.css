@@ -1,3 +1,17 @@
+#montanha {
+   border: 5px solid #60656f;
+   border-radius: 5px;
+   box-shadow: 5px 5px #999da3;
+
+   position: absolute;
+   overflow: hidden;
+}
+
+#skier {
+   position: absolute;
+   
+}
+
 .para-direita {
    background-image: url(skier.png);
    background-position: -25px -6px;
@@ -33,6 +47,40 @@
    height: 31px;
 }
 
+#abominavel-monstro-das-neves { 
+   position: absolute;
+}
+
+.amdn-anim-correr-direita { 
+   background-image: url(amdn-anim-correr-direita.gif);
+   width: 26px;
+   height: 44px;
+}
+.amdn-anim-correr-esquerda { 
+   background-image: url(amdn-anim-correr-esquerda.gif);
+   width: 25px;
+   height: 42px;
+}
+
+.amdn-anim-frente { 
+   background-image: url(amdn-anim-frente.gif);
+   width: 32px;
+   height: 40px;
+}
+
+.amdn-anim-gameover { 
+   background-image: url(amdn-anim-gameover.gif);
+   width: 33px;
+   height: 41px;
+}
+
+.amdn-anim-gameover-noLoop { 
+   background-image: url(amdn-anim-gameover-noLoop.gif);
+   width: 33px;
+   height: 41px;
+}
+
+
 .cogomelo {
    background-image: url(obstacles.png);
    background-position: -270px -50px ;   
@@ -41,11 +89,10 @@
    position: absolute;
 }
 
-.arbusto-em-chamas { 
-   background-image: url(obstacles.png);
-   background-position: -23px -102px;   
-   width: 24px;
-   height: 28px;   
+.anim-arbusto-em-chamas { 
+   background-image: url(anim-arbusto-em-chamas.gif);
+   width: 22px;
+   height: 27px;   
    position: absolute;
 }
 
@@ -82,33 +129,37 @@
 }
 
 .cachorro { 
-   background-image: url(skier.png);
-   background-position: -0px -208px ;   
+   background-image: url(cachorro.gif);
    width: 21px;
-   height: 15px;   
+   height: 19px;   
    position: absolute;
 }
+
 
 #container { 
    position: relative;
 }
 
-#montanha {
-   border: 1px solid black;
-   position: absolute;
-   overflow: hidden;
-}
-
-#skier {
-   position: absolute;
-}
 
 #painel {
-   border: 10px solid black;
+   border: 10px solid #60656f;
+   border-radius: 10px;
+   background-color: #24347e;
+   box-shadow: 5px 5px #999da3;
    width: 400px;
    height: 100px;
    position: absolute;
    margin-left: 350px;
    padding: 10px;
 }
+
+.fonte { 
+   font-family: Helvetica, Arial, sans-serif;
+   font-weight: bold;  
+   color: #f6e84d;
+}
+
+.cinza { 
+   font-color: ;
+ }
 
