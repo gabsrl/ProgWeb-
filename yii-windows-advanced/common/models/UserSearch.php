@@ -18,7 +18,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'id_curso', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'id_curso', 'status', 'created_at', 'updated_at'], 'integer', 'message' => 'Este campo só aceita valores inteiros.'],
             [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
         ];
     }

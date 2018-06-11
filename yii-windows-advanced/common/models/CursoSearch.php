@@ -18,7 +18,7 @@ class CursoSearch extends Curso
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id'], 'integer', 'message' => 'O ID só possui valores inteiros'],
             [['nome', 'sigla', 'descricao'], 'safe'],
         ];
     }

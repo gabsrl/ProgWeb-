@@ -43,10 +43,10 @@ class Jogada extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'id_user' => 'Id User',
-            'pontuacao' => 'Pontuacao',
-            'data_hora' => 'Data Hora',
+            'id' => 'ID da Jogada',
+            'id_user' => 'ID do Usuário',
+            'pontuacao' => 'Pontuação',
+            'data_hora' => 'Data e Hora',
         ];
     }
 

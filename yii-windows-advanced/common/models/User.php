@@ -37,12 +37,13 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'id_curso', 'created_at', 'updated_at'], 'required'],
-            [['id_curso', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'email', 'id_curso', 'created_at', 'updated_at'], 'required','message' => 'Este campo é obrigatório.'],
+            [['id_curso', 'status', 'created_at', 'updated_at'], 'integer', 'message' => 'Este campo só aceita valores inteiros.'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
+            [['username'], 'unique' ,'message' => 'O nome escolhido já está em uso.'],
+            [['email'], 'email', 'message'=> 'O email informado não é válido.'],
+            [['email'], 'unique', 'message'=> 'O email informado já está em uso.'],
             [['password_reset_token'], 'unique'],
             [['id_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::className(), 'targetAttribute' => ['id_curso' => 'id']],
         ];
@@ -55,8 +56,8 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'auth_key' => 'Auth Key',
+            'username' => 'Nome de usuário',
+            'auth_key' => 'Senha',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
