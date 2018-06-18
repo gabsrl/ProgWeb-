@@ -52,8 +52,9 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id); 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -66,7 +67,9 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->created_at = date('Y-m-d H:i:s'); //MySQL datetime format. 
+            if($model->save()) 
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -124,4 +127,6 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

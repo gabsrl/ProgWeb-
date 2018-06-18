@@ -15,8 +15,8 @@ use Yii;
  * @property string $email
  * @property int $id_curso
  * @property int $status
- * @property int $created_at
- * @property int $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property Jogada[] $jogadas
  * @property Curso $curso
@@ -37,8 +37,8 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'id_curso', 'created_at', 'updated_at'], 'required','message' => 'Este campo é obrigatório.'],
-            [['id_curso', 'status', 'created_at', 'updated_at'], 'integer', 'message' => 'Este campo só aceita valores inteiros.'],
+            [['username', 'auth_key', 'password_hash', 'email', 'id_curso'], 'required','message' => 'Este campo é obrigatório.'],
+            [['id_curso', 'status'], 'integer', 'message' => 'Este campo só aceita valores inteiros.'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique' ,'message' => 'O nome escolhido já está em uso.'],
@@ -61,10 +61,10 @@ class User extends \yii\db\ActiveRecord
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
-            'id_curso' => 'Id Curso',
+            'id_curso' => 'Curso',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Adicionado em',
+            'updated_at' => 'Atualizado em',
         ];
     }
 
@@ -83,4 +83,15 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Curso::className(), ['id' => 'id_curso']);
     }
+
+    public function beforeSave($insert) {
+        if(!$this->getIsNewRecord())
+            $this->updated_at = date('Y-m-d H:i:s'); 
+        return parent::beforeSave($insert);
+
+    }
+
+    
+
+
 }
