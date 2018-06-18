@@ -52,9 +52,14 @@ class CursoController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        try { 
+            return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+        }
+        catch(NotFoundHttpException $e) {
+            return $this->render('view', ['model' => Curso::findOne(['sigla' => 'IE08'])]);
+        }        
     }
 
     /**
