@@ -3,9 +3,11 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\models\Curso; //
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper; 
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -66,15 +68,17 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        $cursos = Curso::find()->all(); //recuperando todos os cursos cadastrados no banco
+        $arraycursos = ArrayHelper::map($cursos, 'id', 'nome');
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->created_at = date('Y-m-d H:i:s'); //MySQL datetime format. 
             if($model->save()) 
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'arraycursos' => $arraycursos,
         ]);
     }
 
@@ -88,6 +92,9 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $cursos = Curso::find()->all(); //recuperando todos os cursos cadastrados no banco
+        $arraycursos = ArrayHelper::map($cursos, 'id', 'nome');
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -95,6 +102,7 @@ class UserController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'arraycursos' => $arraycursos,
         ]);
     }
 

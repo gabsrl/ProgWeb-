@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models;
-
+use yii\web\IdentityInterface;
 use Yii;
 
 /**
@@ -21,7 +21,7 @@ use Yii;
  * @property Jogada[] $jogadas
  * @property Curso $curso
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -84,14 +84,52 @@ class User extends \yii\db\ActiveRecord
         return $this->hasOne(Curso::className(), ['id' => 'id_curso']);
     }
 
+
     public function beforeSave($insert) {
         if(!$this->getIsNewRecord())
-            $this->updated_at = date('Y-m-d H:i:s'); 
+            $this->updated_at = date('Y-m-d H:i:s');
+        else 
+            $this->created_at = date('Y-m-d H:i:s'); 
         return parent::beforeSave($insert);
 
     }
 
+
+    public function setPassword($password) { 
+        $this->password_hash =  Yii::$app->security->generatePasswordHash($password);        
+    }
+
+    public function generateAuthKey() { 
+        $this->auth_key = Yii::$app->security->generateRandomString();
+
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['access_token' => $token]);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->auth_key === $authKey;
+    }
+}
     
 
 
-}
+
