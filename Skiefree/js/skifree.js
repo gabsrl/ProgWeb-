@@ -18,8 +18,6 @@
    var FPS = 70;
    var vidas = 3;
    var escapeMonstro = 0;
-   var monstroVisivelLoop = 0;
-   var contMonstroVisivelLoop = 0;
 
    var d = document.getElementById("metros");
    d.innerHTML = 0;
@@ -47,7 +45,6 @@
       document.getElementById("vidas").innerHTML = skier.vidas;
       gameLoop = setInterval(run, 1000/FPS);
       metrosLoop = setInterval(metros, 1000);
-      monstroVisivelLoop = setInterval(monstroTimerVisivel, 1000);
    }
 
    function controles(e) {
@@ -93,20 +90,10 @@
       else 
          d.vlrNumerico += 30;
       d.innerHTML = d.vlrNumerico;
-   }
-
-   function monstroTimerVisivel() { 
-      console.log(contMonstroVisivelLoop);
-      if(abominavelMonstroDasNeves.visivel == 1)  { 
-         if(contMonstroVisivelLoop < 15)
-            contMonstroVisivelLoop += 1;
-         else  
-            abominavelMonstroDasNeves.desaparecer();
-            console.log("visivel: " + abominavelMonstroDasNeves.visivel)
-
-      }
-
-   }
+      
+      if(d.vlrNumerico % 200 == 0)
+            abominavelMonstroDasNeves.aparecer();
+}
 
    function outArea(e, a) {
       var posLeft = parseInt(e.element.style.left);
@@ -123,7 +110,6 @@
    function gameOver() { 
       clearInterval(metrosLoop);
       clearInterval(gameLoop);
-      clearInterval(monstroVisivelLoop);
       window.removeEventListener('keydown', controles);
       window.removeEventListener('keydown', acelerar);
       window.alert("GAMEOVER");
@@ -142,11 +128,12 @@
       this.direcao = 1; //0-esquerda;1-frente;2-direita
       this.vidas = 3;
       this.element.className = 'para-frente';
-      this.element.style.top = '100px'; //Posição top do skier na montanha
-      this.element.style.left = parseInt(TAMX/2)-7 + 'px'; //Posição left do skier na montanha
+      this.element.style.top = '100px'; //Posição top do skie na montanha
+      this.element.style.left = parseInt(TAMX/2)-7 + 'px'; //Posição left do skie na montanha
+
       /*Essa função é acionada quando o ouvinte de eventos captura o evento keydown 'a' ou 'd'
        *Sua lógica basicamente consisite em trocar as classes(para-esquerda, para-frente e para-direita)
-        Css que 'fazem' as direções*/
+        CSS que 'fazem' as direções*/
       this.mudarDirecao = function (giro) {
          if (this.direcao + giro >=0 && this.direcao + giro <=2) {
             this.direcao += giro;
@@ -160,8 +147,8 @@
        ou seja, como um deslocamento sobre o eixo x(-x e x+)
 
        *A função faz um deslocamento unitário(de 1 pixel) somente. O que faz a animação acontecer
-       (deslocamento de vários pixels) do skier, é a função run que fica sendo chamada "continuamente", assim
-       se um evento ('keydown') mudou a direção do skier(para esquerda ou direita), a função andar realiza o
+       (deslocamento de vários pixels) do skie, é a função run que fica sendo chamada "continuamente", assim
+       se um evento ('keydown') mudou a skier.direcao (para esquerda, centro ou direita), a função andar realiza o
        deslocamento de 1 pixel.*/
       this.andar = function () { 
          if (this.direcao == 0) {
@@ -180,7 +167,7 @@
          console.log(this.vidas);
             if(this.vidas >= 0) { 
                this.element.className = "skier-caido";
-               document.getElementById("vidas").innerHTML = this.vidas;
+               document.getElementById("vidas").innerHTML = this.vidas; //atualiza o contador de vidas na página HTML
                return false;
             }
             else { 
@@ -206,7 +193,7 @@
       this.element = document.getElementById("abominavel-monstro-das-neves");
       this.element.style.display = "none";      
       this.element.className = amdnDirecoes[this.direcao];
-      this.element.style.top = '-5px'; //Posição top inicial do abomina na montanha
+      this.element.style.top = '-5px'; //Posição top inicial do abominavel monstro das neves na montanha
       
       this.mudarDirecao = function(giro) {
          if(this.direcao + giro >=0 && this.direcao + giro <=2) { 
@@ -224,12 +211,15 @@
             this.element.style.left = (parseInt(this.element.style.left)+1) + "px";
          }         
          if(escape == 0)
-            this.element.style.top = (parseFloat(this.element.style.top)+0.3) + "px";
+            this.element.style.top = (parseFloat(this.element.style.top)+0.5) + "px";
+         else
+            this.element.style.top = (parseFloat(this.element.style.top)-0.1) + "px";
+         //console.log(this.element.style.top);
       }
 
       this.aparecer = function() { 
          this.element.style.left = skier.element.style.left; //Posicionando left o amdn de acordo com a posição do skier 
-         this.element.style.top = '-5px'; //Posição top inicial do abomina na montanha
+         this.element.style.top = '-5px'; //Posição top  antes do monstro aparecer
          this.element.style.display = "initial";
          this.visivel = 1;      
       }
@@ -238,7 +228,6 @@
          this.element.style.display = "none";
          this.visivel = 0;
          console.log("debug desparecer: " + this.visivel);
-         contMonstroVisivelLoop = 0;
       }
 
       this.comeu = function(esquiador) { 
@@ -276,25 +265,31 @@
       if (random <= PROB_OBSTACULOS*10) {
          var obs = new Obstaculo();
          obstaculosNoJogo.push(obs);
-//       console.log(obstaculosNoJogo.length);
+         //console.log("Quantidade de obstaculos: " + obstaculosNoJogo.length);
       }
 
-      obstaculosNoJogo.forEach(function (o) {
-        var top = (parseInt(o.element.style.top)-1);
-         o.element.style.top = top + "px";
-      });
-
+      for(var i  = 0; i < obstaculosNoJogo.length; i++) {
+         var top = (parseInt(obstaculosNoJogo[i].element.style.top)-1); 
+         obstaculosNoJogo[i].element.style.top = top + "px";
+         
+         if(top <= -65) {
+//            montanha.element.removeChild(montanha.element.childNodes[i]); 
+            obstaculosNoJogo.splice(i, 1);         
+         }
+      }
+      
       skier.andar();
       outArea(skier, abominavelMonstroDasNeves);
 
-      if(d.vlrNumerico > 0 && d.vlrNumerico % 200 == 0) { //torna visivel o abominavel monstro das neves
-         abominavelMonstroDasNeves.aparecer();
-      }
-
-      if(abominavelMonstroDasNeves.visivel == 1) { //O monstro  ira agir enqanto visivel por x tempo. 
+      if(abominavelMonstroDasNeves.visivel == 1) { //O monstro  ira agir enqanto não sumir -70pixels top do viewport. 
          abominavelMonstroDasNeves.andar(escapeMonstro); //tenta matar o skier
          if(abominavelMonstroDasNeves.comeu(skier))  
             gameOver();       
+         if(parseFloat(abominavelMonstroDasNeves.element.style.top) <= -70) { 
+            abominavelMonstroDasNeves.desaparecer();  
+            console.log(" pos top na run" + abominavelMonstroDasNeves.element.style.top);
+         }
+      
       }
 
       //Este trecho de código trata das colisoes e da redução de vidas
@@ -303,7 +298,7 @@
          var obsPosLeft = parseInt(o.element.style.left); 
          
          if(skier.element.style.top == o.element.style.top && Math.abs(skierPosLeft-obsPosLeft) <= 10) {
-            if(o.flag != 0){ 
+            if(o.flag != 0) { 
                if(skier.cair())
                   gameOver();
 //               console.log("\nskier: " + skier.element.style.top + " obstaculo: " + o.element.style.top);
