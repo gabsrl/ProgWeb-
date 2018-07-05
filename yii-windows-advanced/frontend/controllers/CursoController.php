@@ -4,7 +4,9 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Curso;
+use common\models\User;
 use common\models\CursoSearch;
+use yii\helpers\ArrayHelper; 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -50,15 +52,69 @@ class CursoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
-        try { 
-            return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+    
+    public function actionUsers($id) { 
+        try {
+            $curso = $this->findModel($id);
+            $alunos = User::find()->select(['username', 'email', 'status'])->where(['id_curso' =>  $id])->all(); 
+            $alunosDataProvider = new \yii\data\ArrayDataProvider([
+                'allModels' => $alunos, //retorna um vetor de objetos
+                'sort' => [
+                    'attributes' => ['username'],
+                ],
+                'pagination' => ['pageSize' => 10]
+            ]); 
+
+    //        var_dump($alunos);
+    //        die();
+            return $this->render('users_curso', [
+                'alunosDataProvider' => $alunosDataProvider,
+                'curso' => $curso
+
+            ]);
         }
         catch(NotFoundHttpException $e) {
-            return $this->render('view', ['model' => Curso::findOne(['sigla' => 'IE08'])]);
+            echo "Página não encontrada =/"; 
+
+        }
+    }
+    
+     public function actionView($id)
+    {
+        try {
+            
+            $model = $this->findModel($id);
+            $cont = "Informação disponível apenas para alunos do curso";
+            //converte o objeto de Curso para um array associativo, já que o widget DetailView aceita um obj ou um array
+            $displayCursoDataView = ArrayHelper::toArray($model, [
+                'common\models\Curso' => [
+                    'id',
+                    'nome',
+                    'sigla',
+                    'descricao',
+                ],
+            ]);
+
+
+            if(!Yii::$app->user->isGuest) {
+                $user = User::findOne(Yii::$app->user->id); //acha o registro do usuário logado
+                if($user->id_curso == $id)
+                    $cont = User::find()->where('id_curso='. $id)->count();  
+            }
+            $qtdAlunos = ['alunos' => $cont];
+            $displayCursoDataView = array_merge($displayCursoDataView, $qtdAlunos);
+
+            return $this->render('view', [
+                'displayCursoDataView' => $displayCursoDataView,
+                'model' => $model,
+            ]);
+        }
+        catch(NotFoundHttpException $e) {
+            //quando não acha o curso de $id, o usuário é redirecionado para a página do curso de Ciência da computação
+            return $this->render('view', [
+                'displayCursoDataView' => Curso::findOne(['sigla' => 'IE08']),
+                'model' => Curso::findOne(['sigla' => 'IE08']),
+            ]); 
         }        
     }
 

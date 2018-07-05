@@ -102,7 +102,7 @@
          d.vlrNumerico += 30.1;
       d.innerHTML = Math.floor(d.vlrNumerico);
       
-      if(abominavelMonstroDasNeves.visivel == 0 && d.vlrNumerico % 200 <= 20) { 
+      if(abominavelMonstroDasNeves.visivel == 0 && d.vlrNumerico % 2000 <= 20) { 
          abominavelMonstroDasNeves.aparecer();
       }     
 }
@@ -133,12 +133,35 @@
 
    /*Função que é executada quando o skie é pego pelo abominável monstro das neves ou quando suas vidas acabam.
    */ 
+   
+   function salvaScore() { 
+      $.ajax({
+         url: "/yii-windows-advanced/frontend/web/index.php?r=jogo/save",
+         type: 'post',
+
+         data: {
+         pontuacao : d.vlrNumerico
+         
+         },
+
+         error: function() {
+            console.log('Deu algum erro!');
+         },
+
+         success: function(data) {
+            console.log(data);
+         }
+      }); 
+
+  }
+
    function gameOver() { 
       clearInterval(metrosLoop);
       clearInterval(gameLoop);
       window.removeEventListener('keydown', controles);
       window.removeEventListener('keydown', acelerar);
       window.alert("GAMEOVER");
+      salvaScore();
    }
 
    function monstroDasNevesSolo() {

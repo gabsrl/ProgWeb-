@@ -15,6 +15,6 @@ $this->title = 'SkieFree';
         esquiador que deve evitar vários obstáculos de uma montanha e fugir do <strong>Abominável Monstro das Neves (Muhaha)</strong>.</p>
         <p>Jogo inicialmente implementado pelo Prof. David Braga (Icomp/UFAM)</p>
         <p>Continuação da implementação: Gabriel R. Lima<p>
-        <p><a class="btn btn-lg btn-success" href="">Iniciar Jogo</a></p>
+        <p><a class="btn btn-lg btn-success" href="../web/index.php?r=jogo/index">Iniciar Jogo</a></p>
     </div>
 </div>

@@ -30,7 +30,7 @@ class Jogada extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'pontuacao', 'data_hora'], 'required'],
+            [['id_user', 'pontuacao'], 'required'],
             [['id_user', 'pontuacao'], 'integer'],
             [['data_hora'], 'string', 'max' => 45],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
@@ -57,4 +57,11 @@ class Jogada extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
+
+    public function beforeSave($insert) {
+        $this->data_hora = date('Y-m-d H:i:s');
+        return parent::beforeSave($insert);
+    }
+    
 }
+

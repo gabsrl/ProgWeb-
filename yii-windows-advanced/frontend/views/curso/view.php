@@ -5,7 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Curso */
-
+//arquivo css  que sobre escreve o estilo da tag th. Para tal utiliza a flag !important
+$this->registerCssFile('/yii-windows-advanced/frontend/assets/css/th_txt-align.css'); 
 $this->title = $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Cursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,15 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
-        'model' => $model,
+        'model' => $displayCursoDataView,
         'attributes' => [
 //            'id',
             'nome',
             'sigla',
             'descricao:ntext',
+            'alunos',
         ],
-    ]) ?>
+
+    ]); ?>
 
 </div>

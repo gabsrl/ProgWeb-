@@ -41,6 +41,7 @@ AppAsset::register($this);
         ['label' => 'Cursos', 'url' => ['/curso/index']],
         ['label' => 'Sobre', 'url' => ['/site/about']],
         ['label' => 'Contato', 'url' => ['/site/contact']],
+        ['label' => 'Skiefree Rank', 'url' => ['/jogo/ranking']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
